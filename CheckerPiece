@@ -1,0 +1,130 @@
+/**
+ * Robbie Pacsi.
+ * CSE 271, section A.
+ * November 8, 2021.
+ * Project4.
+ * CheckerPiece.java.
+ * This program will design a Graphical 
+ * User Interface (GUI) of a checkerboard.
+ */
+
+//imports needed
+import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.JComponent;
+
+public class CheckerPiece extends JComponent{
+	
+	//private instances needed
+	private char status;
+	private int row;
+	private int column;
+	private final int NUM1 = 60;
+	private final int NUM2 = 40;
+	
+	/**
+	 * The constructor that sets the row, column, and status 
+	 * of a checker piece
+	 * @param row
+	 * @param column
+	 * @param status
+	 * @throws IllegalCheckerBoardArgumentException
+	 */
+	public CheckerPiece(int row, int column, char status) throws IllegalCheckerBoardArgumentException {
+		if (row < 0 || row > 7) {
+			throw new IllegalCheckerBoardArgumentException("This is invalid");
+		}if (column < 0 || column > 7) {
+			throw new IllegalCheckerBoardArgumentException("This is invalid");
+		}if (status != 'r' && status != 'b' && status != 'e') {
+			throw new IllegalCheckerBoardArgumentException("This is invalid");
+		}if ((column + row) % 2 == 0 && status != 'e') {
+			throw new IllegalCheckerBoardArgumentException("This is invalid");
+		}if ((column + row) % 2 == 1 && status == 'e' && (row < 3
+				|| row > 4)) {
+			throw new IllegalCheckerBoardArgumentException("This is invalid");
+		}
+		this.row = row;
+		this.column = column;
+		this.status = status;
+	}
+	
+	/**
+	 * The overridden paintComponent() method from the JComponent 
+	 * class. Draw checkerboard squares with or without the checker 
+	 * piece based on the value of status.
+	 * @param Graphics g
+	 */
+	@Override
+	public void paintComponent(Graphics g) {
+		if ((column + row) % 2 == 0) {
+			g.setColor(Color.WHITE);
+		}else {
+			g.setColor(Color.GREEN);
+		}
+		g.fillRect(0, 0, NUM1, NUM1);
+		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, NUM1, NUM1);
+		
+		if (status == 'e') {
+			return;
+		}if (status == 'b') {
+			g.setColor(Color.BLACK);
+		}if (status == 'r') {
+			g.setColor(Color.RED);
+		}
+		
+		g.fillOval(10, 10, NUM2, NUM2);
+		g.setColor(Color.BLACK);
+		
+	}
+	
+	/**
+	 * Returns the integer value of row
+	 * @return integer row
+	 */
+	public int getRow() {
+		return row;
+	}
+	
+	/**
+	 * Sets the instance property of row
+	 * @param row
+	 */
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	/**
+	 * Returns the integer value of column
+	 * @return integer column
+	 */
+	public int getColumn() {
+		return column;
+	}
+	
+	/**
+	 * Sets the instance property of column
+	 * @param column
+	 */
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	
+	/**
+	 * Returns the char of status
+	 * @return char status
+	 */
+	public char getStatus() {
+		return status;
+	}
+	
+	/**
+	 * Sets the instance property of status
+	 * @param status
+	 */
+	public void setStatus(char status) {
+		this.status = status;
+		repaint();
+	}
+	
+}
