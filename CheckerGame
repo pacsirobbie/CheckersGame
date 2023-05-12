@@ -1,0 +1,123 @@
+/**
+ * Robbie Pacsi.
+ * CSE 271, section A.
+ * November 8, 2021.
+ * Project4.
+ * CheckerGame.java.
+ * This program will design a Graphical 
+ * User Interface (GUI) of a checkerboard.
+ */
+
+//imports needed
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CheckerGame extends JFrame implements ActionListener {
+	
+	//private instances needed
+	private JLabel label1;
+	private JOptionPane about1;
+	private JOptionPane rules1;
+	private CheckerBoard checkerBoard; 
+	private static char[][] boardStatus = new char[][] {
+		 {'e', 'b', 'e', 'b', 'e', 'b', 'e', 'b'},
+	     {'b', 'e', 'b', 'e', 'b', 'e', 'b', 'e'},
+	     {'e', 'b', 'e', 'b', 'e', 'b', 'e', 'b'},
+	     {'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
+	     {'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
+	     {'r', 'e', 'r', 'e', 'r', 'e', 'r', 'e'},
+	     {'e', 'r', 'e', 'r', 'e', 'r', 'e', 'r'},
+	     {'r', 'e', 'r', 'e', 'r', 'e', 'r', 'e'},
+	};
+	
+	/**
+	 * The constructor that sets the layout using the 
+	 * CheckerBoard object (a JPanel), the status bar (a JPanel object) 
+	 * and the menu bar. Also, sets the title, size, default close operation,
+	 * etc. for the JFrame window. Also sets the size to 505x585  
+	 * for the window. Finally, adds the JMenuBar, JMenus, and JMenuItems.
+	 * @throws IllegalCheckerBoardArgumentException
+	 */
+	public CheckerGame() throws IllegalCheckerBoardArgumentException {
+		setTitle("Checker Game"); 
+		setSize(515, 595);
+		checkerBoard = new CheckerBoard(boardStatus);
+		JMenuBar menu1 = new JMenuBar();
+		JPanel status1 = new JPanel(new GridLayout(2, 1)); 
+		about1 = new JOptionPane("About"); 
+		
+		JLabel info1 = new JLabel("This game was developed by Robbie Pacsi.",
+				JLabel.CENTER);
+		status1.add(info1); 
+		
+		JMenu game1 = new JMenu("Game");
+		JMenuItem new1 = new JMenuItem("New");
+		JMenuItem exit1 = new JMenuItem("Exit"); 
+		exit1.addActionListener(this);
+		game1.add(new1);
+		game1.add(exit1);
+		
+		JMenu help1 = new JMenu("Help");
+		JMenuItem rules1 = new JMenuItem("Checker Game Rules");
+		rules1.addActionListener(this);
+		JMenuItem about1 = new JMenuItem("About Checker Game App");
+		about1.addActionListener(this);
+		help1.add(rules1);
+		help1.add(about1);
+		menu1.add(game1);
+		menu1.add(help1);
+		
+		setJMenuBar(menu1);
+		add(checkerBoard, BorderLayout.CENTER);
+		add(status1, BorderLayout.SOUTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
+		
+	}
+	
+	/** This method is for when the user presses, "Exit, 
+	 * "Checker Game Rules", and "About Checker Game App". 
+	 * So if any of those are clicked the if statement associated with 
+	 * it will run. 
+	 * @param ActionEvent e
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Exit")) {
+			dispose(); 
+		}if (e.getActionCommand().equals("Checker Game Rules")) {
+			JOptionPane.showMessageDialog(this, "https://www.wikihow.com/Play-Checkers",
+					"Rules to Checkers", JOptionPane.INFORMATION_MESSAGE);
+		}if (e.getActionCommand().equals("About Checker Game App")) {
+			JOptionPane.showMessageDialog(this, "https://www.youtube.com/watch?v=ScKIdStgAfU",
+					"Video to Checkers", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * The main method which creates a
+	 * JFrame object of the CheckerGame class 
+	 * and makes the window visible.
+	 * @param args
+	 * @throws IllegalCheckerBoardArgumentException
+	 */
+	public static void main(String[] args) throws IllegalCheckerBoardArgumentException {
+		CheckerGame checkerGame = new CheckerGame();
+		checkerGame.setVisible(true);
+	}
+	
+	
+	
+	
+
+}
