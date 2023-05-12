@@ -1,0 +1,28 @@
+/**
+ * Robbie Pacsi.
+ * CSE 271, section A.
+ * November 8, 2021.
+ * Project4.
+ * IllegalCheckerBoardArgumentException.java.
+ * This program will design a Graphical 
+ * User Interface (GUI) of a checkerboard.
+ */
+
+public class IllegalCheckerBoardArgumentException extends Exception {
+	
+	/**
+	 * Default constructor for IllegalCheckerBoardArgumentException
+	 */
+	public IllegalCheckerBoardArgumentException() {
+		super();
+	}
+	
+	/**
+	 * Constructor that prints input message for 
+	 * IllegalCheckerBoardArgumentException
+	 * @param message
+	 */
+	public IllegalCheckerBoardArgumentException(String message) {
+		super(message);
+	}
+}
