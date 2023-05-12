@@ -1,0 +1,117 @@
+/**
+ * Robbie Pacsi.
+ * CSE 271, section A.
+ * November 8, 2021.
+ * Project4.
+ * CheckerBoard.java.
+ * This program will design a Graphical 
+ * User Interface (GUI) of a checkerboard.
+ */
+
+//imports needed
+import java.awt.GridLayout;
+import javax.swing.JPanel;
+
+public class CheckerBoard extends JPanel {
+	
+	//private instances needed 
+	private int bPiece;
+	private int rPiece; 
+	private char[][] boardStatus;
+	
+	
+	/**
+	 * The constructor that sets the boardStatus
+	 * array using the received parameter. It also
+	 * uses this array to instantiate 64 CheckerPiece
+	 * objects based on the row, column, and status values. 
+	 * It adds all of these objects to the panel
+	 * @param boardStatus
+	 * @throws IllegalCheckerBoardArgumentException
+	 */
+	public CheckerBoard(char[][] boardStatus) throws IllegalCheckerBoardArgumentException {
+		bPiece = 12;
+		rPiece = 12;
+		this.boardStatus = new char[8][8];
+		setLayout(new GridLayout(8, 8));
+		
+		for(int i = 0; i < boardStatus.length; i++) {
+			for (int r = 0; r < boardStatus[i].length; r++) {
+				this.boardStatus[i][r] = boardStatus[i][r]; 
+				add(new CheckerPiece(i, r, boardStatus[i][r])); 
+			}
+		}
+	}
+	
+	/**
+	 * Returns the integer of row and column of the checkerPiece
+	 * @param row
+	 * @param column
+	 * @return row and column of checkPiece
+	 */
+	public CheckerPiece getCheckerPiece(int row, int column) {
+		return ((CheckerPiece) this.getComponent(row * 8 + column)); 
+	}
+	
+	/**
+	 *  A setter method that sets the status in 
+	 *  boardStatus for a specific square on the board 
+	 *  based on the row and column.
+	 * @param row
+	 * @param column
+	 * @param status
+	 */
+	public void setCheckerPiece(int row, int column, char status) {
+		boardStatus[row][column] = status;
+		((CheckerPiece) this.getComponent(row * 8 + column)).setStatus(status);
+	}
+	
+	/**
+	 * Returns the integer of the black checker piece
+	 * @return black checker piece 
+	 */
+	public int getBpiece() {
+		return bPiece;
+	}
+	
+	/**
+	 * Sets the black checker piece instance property 
+	 * @param bPiece
+	 */
+	public void setBpiece(int bPiece) {
+		this.bPiece = bPiece; 
+	}
+	
+	/**
+	 * Returns the integer of the red checker piece
+	 * @return red checker piece
+	 */
+	public int getRpiece() {
+		return rPiece;
+	}
+	
+	/**
+	 * Sets the red checker piece instance property
+	 * @param rPiece
+	 */
+	public void setRpiece(int rPiece) {
+		this.rPiece = rPiece; 
+	}
+	
+	/**
+	 * Returns the boardStatus array.
+	 * @return boardStatus array
+	 */
+	public char[][] getBoardStatus() {
+		return boardStatus;
+	}
+	
+	/**
+	 * A setter method that sets 
+	 * the boardStatus array using the received parameter
+	 * @param boardStatus
+	 */
+	public void setBoardStatus(char[][] boardStatus) {
+		this.boardStatus = boardStatus;
+	}
+}
